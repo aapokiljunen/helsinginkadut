@@ -6,6 +6,6 @@ The application is built with React and Vite and uses Firebase for authenticatio
 
 This project is the final assignment for the Cloud Services web development course at Haaga-Helia University of Applied Sciences.
 
+The images with their information are fetched from the Finna.fi API, and they are mostly provided by the Helsinki City Museum, with free use marked.
 
-Here’s a short report on the functionality of the website (part of the course assigment) (in Finnish):
-[link](https://aapokiljunen.github.io/cloudwebdevelopment/wk6/week6.html)
+The program is far from perfect and contains numerous bugs.
