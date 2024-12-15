@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import GamePage from './pages/GamePage';
 import ResultsPage from './pages/ResultsPage';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
@@ -10,13 +11,15 @@ import HighScoresPage from './pages/HighScoresPage';
 const App: React.FC = () => {
     return (
         <ThemeProvider theme={theme}>
-            <Header />
-            <Routes>
-                <Route path="/" element={<GamePage />} />
-                <Route path="/results" element={<ResultsPage />} />
-                <Route path="/highscores" element={<HighScoresPage />} />
-                <Route path="/login" element={<LoginForm />} />
-            </Routes >
+            <HashRouter>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<GamePage />} />
+                    <Route path="/results" element={<ResultsPage />} />
+                    <Route path="/highscores" element={<HighScoresPage />} />
+                    <Route path="/login" element={<LoginForm />} />
+                </Routes>
+            </HashRouter>
         </ThemeProvider>
     );
 };
