@@ -1,14 +1,14 @@
-import React from 'react';
-import './App.css'; 
+import { Routes, Route } from 'react-router-dom';
 import GamePage from './pages/GamePage';
+import ResultsPage from './pages/ResultsPage';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>Welcome to the Location Guessing Game!</h1>
-      <GamePage />
-    </div>
+    <Routes>
+      <Route path="/" element={<GamePage />} />
+      <Route path="/results" element={<ResultsPage />} />
+    </Routes>
   );
-}
+};
 
 export default App;

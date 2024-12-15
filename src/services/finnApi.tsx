@@ -21,7 +21,7 @@ function extractAddress(input: string) {
 async function fetchRandomImages() {
 	const images = [];
 
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 3; i++) {
 		const randomPage = Math.floor(Math.random() * 2500);
 		const params = {
 			limit: 1,
@@ -50,7 +50,7 @@ async function fetchRandomImages() {
 					copyright: records[0].imageRights.copyright,
 					owner: records[0].buildings[0].translated,
 					year: records[0].year || '',
-					architect: records[0].nonPresenterAuthors[0].name,
+					architect: records[0].nonPresenterAuthors[0].name || '',
 					address: address,
 					street: street,
 				});

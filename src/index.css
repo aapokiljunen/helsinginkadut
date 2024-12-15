@@ -68,7 +68,6 @@ button:focus-visible {
 }
 
 img {
-    max-height: 50vh; 
+    max-height: 70vh; 
     width: auto;    
-    object-fit: contain;
   }
