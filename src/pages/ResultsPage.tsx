@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Typography, List, ListItem, ListItemText, ListItemAvatar, Avatar, Button, Divider, Tooltip } from '@mui/material';
+import { auth } from '../services/firebase';
+import { getUsernameFromFirestore, saveResultToFirestore } from '../services/FirestoreService';
 
 interface Image {
 	title: string;
@@ -14,17 +16,30 @@ interface Image {
 	streets: string[];
 }
 
-
+const generateRandomUserId = (): string => {
+    return Math.random().toString(36).substr(2, 9); // Generoi satunnainen ID
+};
 
 const ResultsPage: React.FC = () => {
 	const { state } = useLocation();
 	const { score, images, guesses } = state || { score: { correct: 0, incorrect: 0 }, images: [], guesses: [] };
-
 	const navigate = useNavigate();
+	const userId = auth.currentUser?.uid;
 
 	const handleNewGame = () => {
 		navigate('/');
 	};
+	
+
+    useEffect(() => {
+        if (!userId && score !== null) {
+            const randomUserId = generateRandomUserId();
+			saveResultToFirestore(randomUserId, score.correct)
+        }
+        if (userId && score !== null) {
+            saveResultToFirestore(userId, score.correct);
+        }
+    }, [userId, score]);
 
 	return (
 		<Box sx={{ marginTop: '40px' }}>

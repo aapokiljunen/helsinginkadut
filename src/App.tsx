@@ -5,6 +5,7 @@ import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import theme from './styles/GamePageStyles';
 import Header from './commons/Header';
 import LoginForm from './commons/LoginForm';
+import HighScoresPage from './pages/HighScoresPage';
 
 const App: React.FC = () => {
     return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
             <Routes>
                 <Route path="/" element={<GamePage />} />
                 <Route path="/results" element={<ResultsPage />} />
+                <Route path="/highscores" element={<HighScoresPage />} />
                 <Route path="/login" element={<LoginForm />} />
             </Routes >
         </ThemeProvider>

@@ -2,26 +2,34 @@ import React, { useEffect, useState } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { auth } from "../services/firebase";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { getUsernameFromFirestore } from "../services/FirestoreService";
 
 const Header: React.FC = () => {
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
   const [username, setUsername] = useState<string | null>(null);
 
+  // Kuuntele auth-tilan muutoksia
   useEffect(() => {
-    const fetchUsername = async () => {
-      if (auth.currentUser) {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setCurrentUser(user);
+      if (user) {
         const fetchedUsername = await getUsernameFromFirestore();
         setUsername(fetchedUsername);
+      } else {
+        setUsername(null);
       }
-    };
-
-    fetchUsername();
+    });
+    return () => unsubscribe(); // Poista kuuntelija komponentin purkauduttua
   }, []);
 
-  const handleLogout = () => {
-    signOut(auth); 
-    setUsername(null); 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("Uloskirjautuminen onnistui.");
+    } catch (error) {
+      console.error("Virhe uloskirjautumisessa:", error);
+    }
   };
 
   return (
@@ -33,11 +41,11 @@ const Header: React.FC = () => {
         <Button color="inherit" component={Link} to="/">
           Uusi peli
         </Button>
-        <Button color="inherit" component={Link} to="/hiscores">
+        <Button color="inherit" component={Link} to="/highscores">
           Parhaat tulokset
         </Button>
 
-        {auth.currentUser ? (
+        {currentUser ? (
           <Button color="inherit" onClick={handleLogout}>
             Kirjaudu ulos ({username || "Anonyymi"})
           </Button>

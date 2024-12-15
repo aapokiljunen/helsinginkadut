@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography, Box, Card, CardMedia, CardContent } from '@mui/material';
 import fetchRandomImages from '../services/finnApi';
+import { auth } from '../services/firebase';
+import { getUsernameFromFirestore } from '../services/FirestoreService';
 
 interface Image {
     title: string;
@@ -59,7 +61,7 @@ const GamePage: React.FC = () => {
     }, [currentIndex, images.length, navigate, score, guesses]);
 
     if (images.length === 0) {
-        return <Box sx={{ marginTop: '40px' }}><Typography variant="h4">Ladataan kuvia...</Typography></Box>;
+        return <Box sx={{ marginTop: '40px' }}><Typography variant="body1">Ladataan kuvia...</Typography></Box>;
     }
 
     if (currentIndex >= images.length) {
@@ -77,10 +79,10 @@ const GamePage: React.FC = () => {
                     image={`https://finna.fi${images[currentIndex].imageUrl}`}
                     alt="Tunnista sijainti"
                     style={{
-                        width: '100%',  
-                        height: 'auto', 
-                        maxHeight: '60vh', 
-                        objectFit: 'contain',  
+                        width: '100%',
+                        height: 'auto',
+                        maxHeight: '60vh',
+                        objectFit: 'contain',
                     }}
                 />
                 <CardContent>

@@ -14,6 +14,7 @@ function LoginForm() {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            console.log("kirjautminen onnistui")
             navigate("/");
         } catch (error) {
             console.error("Kirjautuminen epäonnistui", error);
@@ -76,11 +77,13 @@ function LoginForm() {
                     >
                         Kirjaudu sisään
                     </Button>
-                </form>
 
-                <Typography variant="body2" sx={{ marginTop: 2 }}>
-                    Ei tiliä? <a href="/signup">Rekisteröidy</a>
-                </Typography>
+                    <Typography variant="body2" sx={{ marginBottom: 2 }}>
+                    testi@testi.testi || password  (Jukka)
+                    <br/>testi2@testi.testi || password  (Pekka)
+                    </Typography>
+
+                </form>
             </Box>
         </Container>
     );
